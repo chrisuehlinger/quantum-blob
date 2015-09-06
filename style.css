@@ -1,0 +1,6 @@
+/* line 1, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+svg {
+  -webkit-filter: url("#goo") blur(5px) contrast(1);
+  filter: url("#goo") blur(5px) contrast(1); }
+
+/*# sourceMappingURL=style.css.map */
