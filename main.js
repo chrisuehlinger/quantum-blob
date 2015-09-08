@@ -1,30 +1,31 @@
-var width = window.innerWidth * 0.95,
-    height = window.innerHeight * 0.95,
+var width = window.innerWidth,
+    height = window.innerHeight,
     padding = -1, // separation between same-color nodes
     clusterPadding = -11, // separation between different-color nodes
     minRadius = 15,
-    maxRadius = 20;
+    maxRadius = 20,
+    paused = false;
 
 var n = 40, // total number of nodes
     m = 2; // number of distinct clusters
 
 var color = d3.scale.linear()
-    .domain([0,1])
+    .domain([0, 1])
     .range(['red', 'blue']);
 
 // The largest node for each cluster.
 var clusters = new Array(m);
 
 var nodes = d3.range(n).map(function (j) {
-    var i = Math.floor(Math.random() * m),
-        r = minRadius + Math.sqrt((i + 1) / m * -Math.log(Math.random())) * (maxRadius-minRadius),
+    var i = Math.floor((j / n) * m),
+        r = minRadius + Math.sqrt((i + 1) / m * -Math.log(Math.random())) * (maxRadius - minRadius),
         d = {
             cluster: i,
             colorScale: i,
             radius: r,
             id: j
         };
-    
+
     if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
     return d;
 });
@@ -79,21 +80,26 @@ node.transition()
     });
 
 function tick(e) {
-    node
-        .each(cluster(10 * e.alpha * e.alpha))
-        .each(collide(.1))
-        .attr("cx", function (d) {
-            return d.x;
-        })
-        .attr("cy", function (d) {
-            return d.y;
-        })
-        .attr('title', function (d) {
-            return d.colorScale;
-        })
-        .style("fill", function (d) {
-            return color(d.colorScale);
-        });
+    if (!paused) {
+        node
+            .each(cluster(10 * e.alpha * e.alpha))
+            .each(collide(.1))
+            .attr("cx", function (d) {
+                return d.x;
+            })
+            .attr("cy", function (d) {
+                return d.y;
+            })
+            .attr('class', function (d) {
+                return d.cluster ? 'blue' : 'red';
+            })
+            .attr('title', function (d) {
+                return d.colorScale;
+            })
+            .style("fill", function (d) {
+                return color(d.colorScale);
+            });
+    }
 }
 
 // Move d to be adjacent to the cluster node.
@@ -131,13 +137,13 @@ function collide(alpha) {
                     y = d.y - quad.point.y,
                     l = Math.sqrt(x * x + y * y),
                     r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
-                if(l < r+3) {
-                    if(d.cluster !== quad.point.cluster)
+                if (l < r + 3) {
+                    if (d.cluster !== quad.point.cluster)
                         d.colorScale += 0.25 * (0.5 - d.colorScale);
-                    else if(Math.abs(d.colorScale - d.cluster) < Math.abs(quad.point.colorScale - quad.point.cluster))
+                    else if (Math.abs(d.colorScale - d.cluster) < Math.abs(quad.point.colorScale - quad.point.cluster))
                         d.colorScale += 0.25 * (quad.point.colorScale - d.colorScale);
                 }
-                
+
                 if (l < r) {
                     l = (l - r) / l * alpha;
                     d.x -= x *= l;
@@ -150,3 +156,35 @@ function collide(alpha) {
         });
     };
 }
+
+$('.toggle-button').click(function (e) {
+    console.log('paused? ' + paused);
+    var $this = $(this);
+    if (!paused) {
+        $('html')
+            .removeClass('play-sim')
+            .addClass('pause-sim');
+
+        $this
+            .children('i')
+            .removeClass('fa-pause')
+            .addClass('fa-play');
+        
+        $($('.red')[Math.floor(Math.random() * n / m)]).addClass('show-when-paused');
+        $($('.blue')[Math.floor(Math.random() * n / m)]).addClass('show-when-paused');
+    } else {
+        $('html')
+            .removeClass('pause-sim')
+            .addClass('play-sim');
+
+        $this
+            .children('i')
+            .removeClass('fa-play')
+            .addClass('fa-pause');
+        
+        $('.show-when-paused')
+            .removeClass('show-when-paused');
+    }
+
+    paused = !paused;
+});

@@ -1,4 +1,5 @@
-svg {
+
+.play-sim svg {
 //    -webkit-filter: url("#goo");
 //          filter: url("#goo");
 //    -webkit-filter: blur(5px) contrast(1);
@@ -6,4 +7,28 @@ svg {
     
     -webkit-filter: url("#goo") blur(5px) contrast(1);
           filter: url("#goo") blur(5px) contrast(1);
+}
+
+.pause-sim circle {
+    display: none;
+    
+    &.show-when-paused {
+        display: block;
+        
+        &.red {
+            fill: #f00 !important;
+        }
+        
+        &.blue {
+            fill: #00f !important;
+        }
+    }
+}
+
+.toggle-button {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding: 10px;
+    font-size: 36px;
 }

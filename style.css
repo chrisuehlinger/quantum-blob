@@ -1,6 +1,27 @@
-/* line 1, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
-svg {
+/* line 2, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+.play-sim svg {
   -webkit-filter: url("#goo") blur(5px) contrast(1);
   filter: url("#goo") blur(5px) contrast(1); }
+
+/* line 12, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+.pause-sim circle {
+  display: none; }
+  /* line 15, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+  .pause-sim circle.show-when-paused {
+    display: block; }
+    /* line 18, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+    .pause-sim circle.show-when-paused.red {
+      fill: #f00 !important; }
+    /* line 22, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+    .pause-sim circle.show-when-paused.blue {
+      fill: #00f !important; }
+
+/* line 28, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+.toggle-button {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 10px;
+  font-size: 36px; }
 
 /*# sourceMappingURL=style.css.map */
