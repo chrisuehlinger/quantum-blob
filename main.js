@@ -1,6 +1,6 @@
 var width = window.innerWidth,
     height = window.innerHeight,
-    padding = -1, // separation between same-color nodes
+    padding = 10, // separation between same-color nodes
     clusterPadding = -11, // separation between different-color nodes
     minRadius = 15,
     maxRadius = 20,
@@ -190,6 +190,8 @@ $('.toggle-button').click(function (e) {
 
         $($('.red')[Math.floor(Math.random() * n / m)]).addClass('show-when-paused');
         $($('.blue')[Math.floor(Math.random() * n / m)]).addClass('show-when-paused');
+        
+        force.stop();
     } else {
         $('html')
             .removeClass('pause-sim')
@@ -202,6 +204,8 @@ $('.toggle-button').click(function (e) {
 
         $('.show-when-paused')
             .removeClass('show-when-paused');
+        
+        force.start();
     }
 
     paused = !paused;

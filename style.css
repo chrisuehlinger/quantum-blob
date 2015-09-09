@@ -4,47 +4,44 @@ body {
 
 /* line 5, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 svg {
-  position: fixed;
-  -webkit-transition: opacity 0.5s ease-out;
-  transition: opacity 0.5s ease-out; }
+  position: fixed; }
+  /* line 7, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+  svg circle {
+    -webkit-transition: opacity 0.25s ease-out;
+    transition: opacity 0.25s ease-out; }
 
-/* line 11, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+/* line 13, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 canvas {
   position: fixed;
-  -webkit-transition: -webkit-filter 0.5s ease-out;
-  transition: -webkit-filter 0.5s ease-out;
-  -webkit-transition: filter 0.5s ease-out;
-  transition: filter 0.5s ease-out;
-  -webkit-filter: blur(0px);
-  filter: blur(0px); }
+  opacity: 1; }
 
-/* line 23, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+/* line 18, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 .play-sim canvas {
   -webkit-filter: url("#goo");
   filter: url("#goo"); }
 
-/* line 33, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+/* line 27, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 .pause-sim canvas {
   opacity: 0; }
 
-/* line 37, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+/* line 31, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 .play-sim svg circle {
   opacity: 0; }
 
-/* line 41, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+/* line 35, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 .pause-sim circle {
-  display: none; }
-  /* line 44, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+  opacity: 0; }
+  /* line 37, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
   .pause-sim circle.show-when-paused {
-    display: block; }
-    /* line 47, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+    opacity: 1; }
+    /* line 39, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
     .pause-sim circle.show-when-paused.red {
       fill: #f00 !important; }
-    /* line 51, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+    /* line 42, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
     .pause-sim circle.show-when-paused.blue {
       fill: #00f !important; }
 
-/* line 57, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
+/* line 48, /Users/Chris/Development/NextGenLessons/quantum-blob/style.scss */
 .toggle-button {
   position: fixed;
   top: 0px;
