@@ -1,6 +1,6 @@
 var width = window.innerWidth,
     height = window.innerHeight,
-    padding = -1, // separation between same-color nodes
+    padding = 10, // separation between same-color nodes
     clusterPadding = -11, // separation between different-color nodes
     minRadius = 15,
     maxRadius = 20,
@@ -29,6 +29,12 @@ var nodes = d3.range(n).map(function (j) {
     if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
     return d;
 });
+
+var canvas = d3.select("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
 
 
 // Use the pack layout to initialize node positions.
@@ -61,6 +67,8 @@ var svg = d3.select("svg")
     .attr("width", width)
     .attr("height", height);
 
+
+
 var node = svg.selectAll("circle")
     .data(nodes)
     .enter().append("circle")
@@ -81,8 +89,7 @@ node.transition()
 
 function tick(e) {
     if (!paused) {
-        node
-            .each(cluster(10 * e.alpha * e.alpha))
+        node.each(cluster(10 * e.alpha * e.alpha))
             .each(collide(.1))
             .attr("cx", function (d) {
                 return d.x;
@@ -93,12 +100,23 @@ function tick(e) {
             .attr('class', function (d) {
                 return d.cluster ? 'blue' : 'red';
             })
-            .attr('title', function (d) {
-                return d.colorScale;
-            })
-            .style("fill", function (d) {
-                return color(d.colorScale);
-            });
+//            .attr('title', function (d) {
+//                return d.colorScale;
+//            })
+//            .style("fill", function (d) {
+//                return color(d.colorScale);
+//            });
+        
+        
+        context.clearRect(0, 0, width, height);
+        // draw nodes
+        nodes.forEach(function (d) {
+            context.beginPath();
+            context.fillStyle = color(d.colorScale);
+            context.moveTo(d.x, d.y);
+            context.arc(d.x, d.y, d.radius, 0, 2 * Math.PI);
+            context.fill();
+        });
     }
 }
 
@@ -169,9 +187,11 @@ $('.toggle-button').click(function (e) {
             .children('i')
             .removeClass('fa-pause')
             .addClass('fa-play');
-        
+
         $($('.red')[Math.floor(Math.random() * n / m)]).addClass('show-when-paused');
         $($('.blue')[Math.floor(Math.random() * n / m)]).addClass('show-when-paused');
+        
+        force.stop();
     } else {
         $('html')
             .removeClass('pause-sim')
@@ -181,9 +201,11 @@ $('.toggle-button').click(function (e) {
             .children('i')
             .removeClass('fa-play')
             .addClass('fa-pause');
-        
+
         $('.show-when-paused')
             .removeClass('show-when-paused');
+        
+        force.start();
     }
 
     paused = !paused;

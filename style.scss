@@ -1,24 +1,44 @@
+body {
+    margin: 0;
+}
 
-.play-sim svg {
-//    -webkit-filter: url("#goo");
-//          filter: url("#goo");
-//    -webkit-filter: blur(5px) contrast(1);
-//          filter: blur(5px) contrast(1);
-    
-    -webkit-filter: url("#goo") blur(5px) contrast(1);
-          filter: url("#goo") blur(5px) contrast(1);
+svg {
+    position: fixed;
+    circle {
+        -webkit-transition: opacity 0.25s ease-out;
+        transition: opacity 0.25s ease-out;
+    }
+}
+
+canvas {
+    position: fixed;
+    opacity: 1;
+}
+
+.play-sim canvas {
+    -webkit-filter: url("#goo");
+    filter: url("#goo");
+    //    -webkit-filter: blur(5px) contrast(1);
+    //          filter: blur(5px) contrast(1);
+    //    -webkit-filter: url("#goo") blur(5px) contrast(1);
+    //          filter: url("#goo") blur(5px) contrast(1);
+}
+
+.pause-sim canvas {
+    opacity: 0;
+}
+
+.play-sim svg circle {
+    opacity: 0;
 }
 
 .pause-sim circle {
-    display: none;
-    
+    opacity: 0;
     &.show-when-paused {
-        display: block;
-        
+        opacity: 1;
         &.red {
             fill: #f00 !important;
         }
-        
         &.blue {
             fill: #00f !important;
         }
